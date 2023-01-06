@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "shop.apps.ShopConfig",
     "cart.apps.CartConfig",
     "orders.apps.OrdersConfig",
+    "payment.apps.PaymentConfig",
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -130,5 +132,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 CART_SESSION_ID = 'cart'
+
+# Email Server configuration
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'admin@pardise.com'
+EMAIL_HOST_PASSWORD = 'xgdkjskjawbizfwl'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# Stripe settings
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MN86EK5GsdCL3nX9slLBdvsu1IiYUJY1Lb81mnKdPjebggmRKk8ycApq0SsE0oSx77nH9RqIyiPwgARgnwrSoX000Y9GbPmsC'             # Publishable Key
+STRIPE_SECRET_KEY = 'sk_test_51MN86EK5GsdCL3nXQj3edOjhP5jO8VKG7h0U8bVIexk9uQfCWjxOWICC6wwV2D8jIUzXKUYCZi5MMAHwH0b6xFkD006JANwCmV'                  # Secret Key
+STRIPE_API_VERSION = '2022-08-01'
+STRIPE_WEBHOOK_SECRET = "whsec_ce99d23fdee0c08b57ec9242527c19b9bd41f602421fccab95f4fa68ad7197c0"
+
+
 
 
