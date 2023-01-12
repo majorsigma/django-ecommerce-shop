@@ -11,10 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = "django-insecure-^k8!h61c+bu&&l7ix6962lk&50=37^s6b258)3@s(v&!7c!v=2
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -42,11 +41,13 @@ INSTALLED_APPS = [
     "orders.apps.OrdersConfig",
     "payment.apps.PaymentConfig",
     "coupons.apps.CouponsConfig",
+    "rosetta",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -75,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "myshop.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -85,7 +85,6 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -105,18 +104,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-
+LANGUAGE_CODE = "en"
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
-
+LANGUAGES = [
+    ('en', _("English")),
+    ('en', _("Spanish")),
+]
+LOCAL_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -143,8 +144,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 # Stripe settings
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51MN86EK5GsdCL3nX9slLBdvsu1IiYUJY1Lb81mnKdPjebggmRKk8ycApq0SsE0oSx77nH9RqIyiPwgARgnwrSoX000Y9GbPmsC'             # Publishable Key
-STRIPE_SECRET_KEY = 'sk_test_51MN86EK5GsdCL3nXQj3edOjhP5jO8VKG7h0U8bVIexk9uQfCWjxOWICC6wwV2D8jIUzXKUYCZi5MMAHwH0b6xFkD006JANwCmV'                  # Secret Key
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MN86EK5GsdCL3nX9slLBdvsu1IiYUJY1Lb81mnKdPjebggmRKk8ycApq0SsE0oSx77nH9RqIyiPwgARgnwrSoX000Y9GbPmsC'  # Publishable Key
+STRIPE_SECRET_KEY = 'sk_test_51MN86EK5GsdCL3nXQj3edOjhP5jO8VKG7h0U8bVIexk9uQfCWjxOWICC6wwV2D8jIUzXKUYCZi5MMAHwH0b6xFkD006JANwCmV'  # Secret Key
 STRIPE_API_VERSION = '2022-08-01'
 STRIPE_WEBHOOK_SECRET = "whsec_ce99d23fdee0c08b57ec9242527c19b9bd41f602421fccab95f4fa68ad7197c0"
 
@@ -152,6 +153,3 @@ STRIPE_WEBHOOK_SECRET = "whsec_ce99d23fdee0c08b57ec9242527c19b9bd41f602421fccab9
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 1
-
-
-
